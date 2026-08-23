@@ -47,7 +47,7 @@ Use the antivirus app is the first chose for most people, it don't need any know
 Generate the hash and compare to the libary, relias on the hash did sumbited to the liabary. The hash would change even just a single bit in the app change.
 
 **Behavioral base**  
-Detect the action of a process take, like open a pdf that is safe, but will warning user while a doc execute the powershell(danger process, classify as maliciou marco)
+Detect the action of a process take, like open a pdf that is safe, but will warning user while a word document execute the powershell(danger process, classify as maliciou marco)
 
 The antivirus above, they all allow to do the full drive or partial drive scan, but they had not explain what method they use. Here I create a schedule task that edit the firewall to a directory periodlc. 
 RunNetrule.vbs file run by wscript.exe, use wscript to run powershell command can prevent the powershell windows flash even use the hidden widows
