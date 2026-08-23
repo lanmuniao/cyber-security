@@ -1,26 +1,26 @@
-# cyber-security
-Just help me to remember and note some practice
+# 网络安全
+放生一些野生知识
 
-## Table of Contents
+## 内容
 
-- [Assets](#Assets)
-- [Basic Protection](#Basic-Protection)
+- [设备](#设备)
+- [基础保护](#基础保护)
 - [SIEM](#SIEM) to do
-- [phishing](#phishing) to do
-- [malware](#malware) to do
-- [configuration](#configuration) to do
-# Assets
-Before we protect or attack the company we want, we have to understand each machines purpose, what they do, how they work.
+- [钓鱼](#钓鱼) to do
+- [恶意软件](#恶意软件) to do
+- [安全配置](#安全配置) to do
+# 设备
+在进行攻击或者保护前，我们需要知道一台设备是干什么的，才能实行对应的手段
 
-### **Computers**
-The common operating systems include windows, linux, macos（sounds like something+s).
+### **电脑**
+闻斗死，鳞你死，迈哦s，常见的电脑系统，好了你可以进行攻击防御了。
 
 -**Windows**:  
-    The os published by microsoft, the benefit is there is a company patch the system, but the patch sometimes great, sometimes sh**. They try to promot more ad, add more functions to edge and tool bar. Which cause the more source usage. :hankey:  
-    However, it holds the largest market share in personal computer operating systems. Most software design to run on the windows.  
+    微软发布维护的系统，个人电脑装的最多的系统，性能本最好的驾驶者，更是广告和屎山的集合体 :hankey:  
+    但是，我还是喜欢你啊，windows小姐。告诉linux，我今晚不回去了。 
   
 -**Linux**:  
-    penguin :penguin:, contribute by the community, while a zero day exist, linux allow to patch it faster. My first impression to the linux is the command line, and **__no game__** (QAQ). It can run some exe files by wine, but it is slow and not useful.  
+    此企鹅非彼企鹅 :penguin:, 维护更新由社区完成。优点是系统简单，缺点也是系统简单。（喜欢我的指令吗，喜欢我的板砖吗）
   
 -**Macos**:  
     I never used but the community say it is Best for Creative Types.  
