@@ -20,7 +20,7 @@ The common operating systems include windows, linux, macos（sounds like somethi
     However, it holds the largest market share in personal computer operating systems. Most software design to run on the windows.  
   
 -**Linux**:  
-    penguin :penguin:, contribute by the community, while a zero day exist, linux allow to patch it faster. My first impression to the linux is the command line, and **__no game__** (QAQ). It can run some exe files by wine, but it is slow and not useful.  
+    penguin :penguin:, contribute by the community, while a zero day exist, linux allow to patch it faster. My first impression to the linux is the command line, and **__no game__** (QAQ). The machine run this system can be the computer, but also can be a brick(sudo rm -rf /)  
   
 -**Macos**:  
     I never used but the community say it is Best for Creative Types.  
