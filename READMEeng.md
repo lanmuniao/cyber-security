@@ -34,4 +34,74 @@ IOT:
 
 Basic protection
 Use the antivirus app is the first chose for most people, it don't need any knowledge or skills. The hardest is to find out the system use and architecture. Here use the Avast, tencent computer manager, AVG, 360(because they are free to use or provide a period of free to use). Traditional antivirus mainly relies on signature-based detection, while modern endpoint protection also uses heuristic, behavioral, and machine-learning techniques.
-For the antivirus above, they all allow to do the full drive or partial drive scan 
+
+Signature base
+Generate the hash and compare to the libary, relias on the hash did sumbited to the liabary. The hash would change even just a single bit in the app change.
+
+Behavioral base
+While a app do something malicious, it will detect and ask you to isolate.
+
+For the antivirus above, they all allow to do the full drive or partial drive scan, but they had not explain what method they use. Here I create a schedule task that edit the firewall to a file periodlc. 
+vbs file run by wscript.exe, use wscript to run powershell command can prevent the powershell windows flash even use the hidden widows
+```
+Set WshShell = CreateObject("WScript.Shell")
+
+WshShell.Run "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File ""C:\Scripts\Netrule.ps1""", 0, False
+```
+```
+$Folder = "<path to the file>"
+$LogFile = "path to the log"
+
+try {
+
+    if (-not (Test-Path $Folder)) {
+        "ERROR: Folder does not exist: $Folder" | Out-File $LogFile -Append
+        exit 1
+    }
+
+
+    Get-ChildItem $Folder -Filter *.exe -File -Recurse | ForEach-Object {
+
+        $RuleName = "Block Network - " + $_.FullName
+
+
+        if (-not (Get-NetFirewallRule -DisplayName $RuleName -ErrorAction SilentlyContinue)) {
+
+            New-NetFirewallRule `
+                -DisplayName $RuleName `
+                -Direction Outbound `
+                -Program $_.FullName `
+                -Action Block `
+                -Profile Any `
+                -ErrorAction Stop | Out-Null
+
+
+            "$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss') - CREATED: $($_.FullName)" |
+                Out-File $LogFile -Append
+        }
+    }
+
+
+    Get-NetFirewallRule |
+    Where-Object DisplayName -like "Block Network -*" |
+    ForEach-Object {
+
+        $Rule = $_
+        $App = $Rule | Get-NetFirewallApplicationFilter
+
+        if ($App.Program -and -not (Test-Path $App.Program)) {
+
+
+            $Rule | Remove-NetFirewallRule
+        }
+    }
+}
+catch {
+
+    "$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss') - ERROR: $($_.Exception.Message)" |
+        Out-File $LogFile -Append
+}
+```
+The command can be maliciou if it disable the firewall rule. However, 360 only mark the vbs file as trojan.
+![Network Diagram](images/"屏幕截图 2026-08-23 150832.png")
+
