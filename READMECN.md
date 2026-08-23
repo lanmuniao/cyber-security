@@ -20,34 +20,34 @@
     但是，我还是喜欢你啊，windows小姐。告诉linux，我今晚不回去了。 
   
 -**Linux**:  
-    此企鹅非彼企鹅 :penguin:, 维护更新由社区完成。优点是系统简单，缺点也是系统简单。（喜欢我的指令吗，喜欢我的板砖吗）
+    此企鹅非彼企鹅 :penguin:, 维护更新由社区完成。优点是系统简单，缺点也是系统简单。（喜欢我的指令吗，喜欢我的板砖吗）sudo rm -rf /
   
 -**Macos**:  
-    I never used but the community say it is Best for Creative Types.  
+    赞颂世界上最好用的系统，赞美那漂亮的界面，歌颂她完美无瑕的架构。好吧，其实我根本没用过。  
   
 -**ChromeOS**:  
-    Open files, watch video, read the email or website, that is my feeling with bought the chromebook. It does not support a lots of things, but sells $500au. It have a linux built-in, just like a vm, again have a lots of limitation, but $500au. I feel stuck while I run the app by the built-in linux, but $500au.  
+    好东西，本身系统非常干净，干净到基本就用来打开文件，上网，看邮箱。然后没啦。内置个类似linux虚拟机的东西，可以随便玩不怕坏，只不过没直接买linux好而已。（500买回来还要什么直升机啊）  
 
--**Servers**:  
-  The machine receive the request and provide services. Most have no screen, no mouse, control by the client. Some of them have GUI, some not. 
+-**服务器**:  
+  接收请求，返回需要的内容或者服务。有非常多服务器的类型。 
 
--**Routers**:  
-  Help to communicate in different network. Rare to see the person set the end point as the router.
+-**路由器**:  
+  不同网络之间传输要使用的设备。
 
--**Switchs**:  
-  Help to communicate in the same network. Learn the machine address code from hosts and delivery the message.
+-**交换机**:  
+  本地网络通信使用的设备。
 
--**IOT**:  
-  Internet of things, while a thing connect to the network, it can call IOT. However, the things connect to network brings the convinient, but also more attack surface.
+-**物联网**:  
+  奇奇怪怪的东西连上网就是物联网了，冰箱汽车扫地机，不过攻击面变多变大了。
 
-# **Basic protection**
-Use the antivirus app is the first chose for most people, it don't need any knowledge or skills. The hardest is to find out the system use and architecture. Here I use the Avast, tencent computer manager, AVG, 360(because they are free to use or provide a period of free to use). Traditional antivirus mainly relies on signature-based detection, while modern endpoint protection also uses heuristic, behavioral, and machine-learning techniques.
+# **基础保护**
+使用电脑防护程序，360，腾讯电脑管家。现代杀毒软件通常都会配备基于特征，代码，行为的检测。这类杀毒软件可以应对大部分已经发生过的攻击，不过嘛，代价是什么。  
 
-**Signature base**  
-Generate the hash and compare to the libary, relias on the hash did sumbited to the liabary. The hash would change even just a single bit in the app change.
+**基于特征**  
+生成文件的哈希值，或者签名，去和存储在库里的已知恶意软件进行比较。主播主播，没遇到过这题怎么办，那就给了
 
-**Behavioral base**  
-Detect the action of a process take, like open a pdf that is safe, but will warning user while a doc execute the powershell(danger process, classify as maliciou marco)
+**基于行为**  
+根据一个程序进行的行为来判断是否恶意，举个栗子，你打开的word文件会启动powershell并执行一段神秘代码，这个就要开始警告你了。
 
 The antivirus above, they all allow to do the full drive or partial drive scan, but they had not explain what method they use. Here I create a schedule task that edit the firewall to a directory periodlc. 
 RunNetrule.vbs file run by wscript.exe, use wscript to run powershell command can prevent the powershell windows flash even use the hidden widows
