@@ -111,7 +111,6 @@ catch {
 }
 ```
 The command can be maliciou if it disable the firewall rule. However, only 360 mark the vbs file as trojan. I think it classify the powershell command as safe, but the vbs execute the powershell which is unwanted process. 
-![Network Diagram](images/360case1.png)
 <picture>
  <img alt="the case used 360" src="images/360case1.png">
 </picture>
