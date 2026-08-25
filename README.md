@@ -4,6 +4,7 @@ Just help me to remember and note some practice
 ## Table of Contents
 
 - [Assets](#Assets)
+- [Network](#Network)
 - [Basic Protection](#Basic-Protection)
 - [SIEM](#SIEM) to do
 - [phishing](#phishing) to do
@@ -38,7 +39,24 @@ The common operating systems include windows, linux, macos（sounds like somethi
   Help to communicate in the same network. Learn the machine address code from hosts and delivery the message.
 
 -**IOT**:  
-  Internet of things, while a thing connect to the network, it can call IOT. However, the things connect to network brings the convinient, but also more attack surface.
+  Internet of things, while a thing connect to the network, it can call IOT. However, the things connect to network brings the convinient, but also more attack surface.  
+  
+## Network
+Here is a very brief description about network
+
+Machines use binary, which 0 and 1. While we reading the ip address, the address would transform into decimal, which easy to read. The router and switch use the address to confirm the address that message have to send.
+### address
+IPV4
+4 octets, <0-255>.<0-255>.<0-255>.<0-255>.<0-255>, each 1 octet have 8 positions, which means can have 256(2<sup>8</sup> numbers, 0-255. 
+
+IPV6
+There are no enough addresses while only use the IPV4, the IPV6 exist, having 6 octects <0-255>.<0-255>.<0-255>.<0-255>.<0-255>.<0-255>.<0-255> means more addresses can be use.
+
+MAC(not computer)
+Media Access Control, Network interface (NIC) assigned during manufacturing/initialization
+
+The ip address include the network bit and host bit. Like nnnnnnnn.nnnnnnnn.hhhhhhhh.hhhhhhhh(binary, n for network, h for host). Most h means can have more hosts in the network. Subnet mask, use to define the number of h or n, like the common ip address, 192.168.0.1 /24, the /24 is the cidr(Classless Inter-Domain Routing (CIDR), which means have 24 bits for the network bits. That we can get there is 8 bits for hosts, 2<sup>8</sup> possible addresses for the host. Subnet mask, the number we enter in the configuration, 2<sup>32(total bits for address) - CIDR</sup>. For example, /23 means the mask have 23 bits, the address is nnnnnnnn.nnnnnnnn.nnnnnnnh.hhhhhhhh.hhhhhhhh . We get the subnet mask as 2<sup>8</sup>.2<sup>8</sup>.2<sup>7</sup>.0
+
 
 # **Basic protection**
 Use the antivirus app is the first chose for most people, it don't need any knowledge or skills. The hardest is to find out the system use and architecture. Here I use the Avast, tencent computer manager, AVG, 360(because they are free to use or provide a period of free to use). Traditional antivirus mainly relies on signature-based detection, while modern endpoint protection also uses heuristic, behavioral, and machine-learning techniques.
@@ -48,6 +66,7 @@ Generate the hash and compare to the libary, relias on the hash did sumbited to 
 
 **Behavioral base**  
 Detect the action of a process take, like open a pdf that is safe, but will warning user while a word document execute the powershell(danger process, classify as maliciou marco)
+
 
 The antivirus above, they all allow to do the full drive or partial drive scan, but they had not explain what method they use. Here I create a schedule task that edit the firewall to a directory periodlc. 
 RunNetrule.vbs file run by wscript.exe, use wscript to run powershell command can prevent the powershell windows flash even use the hidden widows
@@ -119,3 +138,5 @@ The antivirus apps marked a few files that is PUP or backdoor, which are the sam
 To the using, choose one of the antivirus you trust, the more does not mean better. (They fights in your pc)
 
 For security, antivirus can act as the guard and the asistant, use for easy manage with the suspecious or malicious file. However, we can not 100% trust or rely it, it may not detect the new malware, new technologies, new vulnerability.
+
+
