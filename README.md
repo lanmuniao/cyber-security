@@ -47,7 +47,7 @@ Here is a very brief description about network
 Machines use binary, which 0 and 1. While we reading the ip address, the address would transform into decimal, which easy to read. The router and switch use the address to confirm the address that message have to send.
 ### address
 IPV4
-4 octets, <0-255>.<0-255>.<0-255>.<0-255>.<0-255>, each 1 octet have 8 positions, which means can have 256(2<sup>8</sup> numbers, 0-255. 
+4 octets, each octet contains 8 bits. For each bit can have two possible number 0 or 1, which means can have 256(2<sup>8</sup> numbers 0-255. The address will be <0-255>.<0-255>.<0-255>.<0-255>.<0-255>
 
 IPV6
 There are no enough addresses while only use the IPV4, the IPV6 exist, having 6 octects <0-255>.<0-255>.<0-255>.<0-255>.<0-255>.<0-255>.<0-255> means more addresses can be use.
@@ -55,7 +55,8 @@ There are no enough addresses while only use the IPV4, the IPV6 exist, having 6 
 MAC(not computer)
 Media Access Control, Network interface (NIC) assigned during manufacturing/initialization
 
-The ip address include the network bit and host bit. Like nnnnnnnn.nnnnnnnn.hhhhhhhh.hhhhhhhh(binary, n for network, h for host). Most h means can have more hosts in the network. Subnet mask, use to define the number of h or n, like the common ip address, 192.168.0.1 /24, the /24 is the cidr(Classless Inter-Domain Routing (CIDR), which means have 24 bits for the network bits. That we can get there is 8 bits for hosts, 2<sup>8</sup> possible addresses for the host. Subnet mask, the number we enter in the configuration, 2<sup>32(total bits for address) - CIDR</sup>. For example, /23 means the mask have 23 bits, the address is nnnnnnnn.nnnnnnnn.nnnnnnnh.hhhhhhhh.hhhhhhhh . We get the subnet mask as 2<sup>8</sup>.2<sup>8</sup>.2<sup>7</sup>.0
+The ip address include the network bit and host bit. Like nnnnnnnn.nnnnnnnn.hhhhhhhh.hhhhhhhh(binary, n for network, h for host). Most h means can have more hosts in the network. Subnet mask, use to define the number of h or n, like the common ip address, 192.168.0.1 /24, the /24 is the CIDR(Classless Inter-Domain Routing (CIDR), which means have 24 bits for the network bits. That we can get there is 8 bits for hosts, 2<sup>8</sup> possible addresses for the host. Subnet mask, the number we enter in the configuration, 2<sup>32(total bits for address) - CIDR</sup>. For example, /23 means the mask have 23 bits, the address is nnnnnnnn.nnnnnnnn.nnnnnnnh.hhhhhhhh.hhhhhhhh . We get the subnet mask as 11111111.11111111.1111111h.hhhhhhhh(binary), 255.255.254.0(decimal).  
+
 
 
 # **Basic protection**
