@@ -44,13 +44,13 @@ The common operating systems include windows, linux, macos（sounds like somethi
 ## Network
 Here is a very brief description about network
 
-Machines use binary, which 0 and 1. While we reading the ip address, the address would transform into decimal, which easy to read. The router and switch use the address to confirm the address that message have to send.
+The router and switch use the address to confirm the address that message have to send.
 ### address
 _**IPV4**_:  
 4 octets, each octet contains 8 bits. For each bit can have two possible number 0 or 1, which means can have 256(2<sup>8</sup> numbers 0-255. The address will be **<0-255>.<0-255>.<0-255>.<0-255>.<0-255>**
 
 _**IPV6**_:
-There are no enough addresses while only use the IPV4, the IPV6 exist, having 6 octects **<0-255>.<0-255>.<0-255>.<0-255>.<0-255>.<0-255>.<0-255>** means more addresses can be use.
+8 octets, each octet contains 4 hex number.
 
 _**MAC(not computer)**_:
 Media Access Control, Network interface (NIC) assigned during manufacturing/initialization, format is like 00:50:56:c0:00:01. The first three groups are **Vendor Identifier**, the last 3 groups are **Device serial number**.
