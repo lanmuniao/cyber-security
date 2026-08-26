@@ -46,17 +46,29 @@ Here is a very brief description about network
 
 Machines use binary, which 0 and 1. While we reading the ip address, the address would transform into decimal, which easy to read. The router and switch use the address to confirm the address that message have to send.
 ### address
-IPV4
-4 octets, each octet contains 8 bits. For each bit can have two possible number 0 or 1, which means can have 256(2<sup>8</sup> numbers 0-255. The address will be <0-255>.<0-255>.<0-255>.<0-255>.<0-255>
+_**IPV4**_:  
+4 octets, each octet contains 8 bits. For each bit can have two possible number 0 or 1, which means can have 256(2<sup>8</sup> numbers 0-255. The address will be **<0-255>.<0-255>.<0-255>.<0-255>.<0-255>**
 
-IPV6
-There are no enough addresses while only use the IPV4, the IPV6 exist, having 6 octects <0-255>.<0-255>.<0-255>.<0-255>.<0-255>.<0-255>.<0-255> means more addresses can be use.
+_**IPV6**_:
+There are no enough addresses while only use the IPV4, the IPV6 exist, having 6 octects **<0-255>.<0-255>.<0-255>.<0-255>.<0-255>.<0-255>.<0-255>** means more addresses can be use.
 
-MAC(not computer)
-Media Access Control, Network interface (NIC) assigned during manufacturing/initialization
+_**MAC(not computer)**_:
+Media Access Control, Network interface (NIC) assigned during manufacturing/initialization, format is like 00:50:56:c0:00:01. The first three groups are **Vendor Identifier**, the last 3 groups are **Device serial number**.
 
 The ip address include the network bit and host bit. Like nnnnnnnn.nnnnnnnn.hhhhhhhh.hhhhhhhh(binary, n for network, h for host). Most h means can have more hosts in the network. Subnet mask, use to define the number of h or n, like the common ip address, 192.168.0.1 /24, the /24 is the CIDR(Classless Inter-Domain Routing (CIDR), which means have 24 bits for the network bits. That we can get there is 8 bits for hosts, 2<sup>8</sup> possible addresses for the host. Subnet mask, the number we enter in the configuration, 2<sup>32(total bits for address) - CIDR</sup>. For example, /23 means the mask have 23 bits, the address is nnnnnnnn.nnnnnnnn.nnnnnnnh.hhhhhhhh.hhhhhhhh . We get the subnet mask as 11111111.11111111.1111111h.hhhhhhhh(binary), 255.255.254.0(decimal).  
 
+The local ip address is always like **10.x.x.x(large)**, **127.16.x.x(medium)**, **192.168.x.x(small)**, depending on the devices number and network size. The first and last address is always for the gateway and boardcast(network address is not allow to use, like 192.168.0.0, the first address is 192.168.0.1). While using, the gateway and boardcast can set at any address you like, but for easy to management, set it as first and last.   
+
+**Loopback**, the server was set at local, we can use this address to access, like **127.0.0.1**, **127.0.0.0/8** or **localhost**. The data does not leave the local machine, but circulates directly within the network stack of the operating system kernel.
+
+_**study address**_:  
+There is hundred host, two in them, a and b, a 192.168.31.80 want to send data to b 192.168.31.31(same network)  
+1.Search the local ARO cache: check the ARP table, had it record the ip and mac address.(The cache will be cleaned up)
+2.Send the broadcast request: use availible methods to send the arp request, like the direct cable to other devices, if to the switch, switch will send this package to other devices connect to the switch.  
+2.1 (if at different network)Send the package to router, router will send package to other router/boardcast in that network
+3.Receive the response: only the address match to request will response, and this will record in the switch's table, and a's local cache. (The next time known the way to 192.168.31.31, not require to boardcast again)
+
+While the hosts at different network, the router have to transform the local ip address to public ip address.
 
 
 # **Basic protection**
@@ -135,7 +147,7 @@ The command can be maliciou if it disable the firewall rule. However, only 360 m
  <img alt="the case used 360" src="images/360case1.png">
 </picture>
 
-The antivirus apps marked a few files that is PUP or backdoor, which are the same. Um, after I delete the file, the program can not run. ***I delete those antivirus and execute it again, it allow to run. Maybe one of them kill the process and had not notice me.*** Additional, 360 disable execution all the program in usb, it is the function I had not seen in other antivirus, also, don't grab an unknow usb on street and insert to the pc.(not the promotion to 360, only describe the advantage, and I want to say, 360 tried to install more app without you known it, act more like a trojan than a trojan)  
+The antivirus apps marked a few files that is PUP or backdoor, which are the same. Um, after I delete the file, the program can not run. ***I delete those antivirus and execute it again, it allow to run. Maybe one of them kill the process and had not notice me.*** Additional, 360 disable execution all the program in usb, it is the function I had not seen in other antivirus, also, don't grab an unknow usb on street and insert to the pc.(not the promotion to 360, only describe the advantage, and I want to say, 360 tried to install more app without you known it, more like a trojan than a trojan)  
 To the using, choose one of the antivirus you trust, the more does not mean better. (They fights in your pc)
 
 For security, antivirus can act as the guard and the asistant, use for easy manage with the suspecious or malicious file. However, we can not 100% trust or rely it, it may not detect the new malware, new technologies, new vulnerability.
