@@ -152,4 +152,23 @@ To the using, choose one of the antivirus you trust, the more does not mean bett
 
 For security, antivirus can act as the guard and the asistant, use for easy manage with the suspecious or malicious file. However, we can not 100% trust or rely it, it may not detect the new malware, new technologies, new vulnerability.
 
+# **SIEM**  
+Here I use the elastic as the example, the reason is I like the visualization process tree in it.(I am using the windows, linux and mac have to use other way)
 
+Donwload the kibana and elastic search zip files, extract it.  
+In elastic/bin, enter command below to set password
+```
+.\elasticsearch-reset-password.bat -u kibana_system -i
+```
+Config the kibana-version/config/kibana.yml, add
+```
+server.port: 5601
+server.host: "localhost"
+
+elasticsearch.username: "kibana_system"
+elasticsearch.password: "password set"
+
+elasticsearch.hosts: ["https://localhost:9200"]
+elasticsearch.ssl.certificateAuthorities: ["path to elastic/elasticsearch-9.5.2/config/certs/http_ca.crt"]
+```
+Then execute the kibana-version/bin/kibana.bat and elasticsearch-version/bin/elasticsearch.bat. Wait for a moment and then access the localhost:5601.
