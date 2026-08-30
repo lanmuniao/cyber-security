@@ -237,3 +237,8 @@ inputs:
         winlog:
           channel: Microsoft-Windows-Sysmon/Operational
 ```
+Use command to Restart the agent
+```
+Restart-Service "Elastic Agent"
+```
+Now, the search should display the events.
