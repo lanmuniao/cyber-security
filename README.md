@@ -156,7 +156,7 @@ For security, antivirus can act as the guard and the asistant, use for easy mana
 Here I use the elastic as the example, the reason is I like the visualization process tree in it.(I am using the windows, linux and mac have to use other way)
 
 Donwload the kibana and elastic search zip files, extract it.  
-In elastic/bin, enter command below to set password
+In elastic/bin, enter command below to set password  
 ```
 .\elasticsearch-reset-password.bat -u kibana_system -i
 ```
@@ -171,4 +171,69 @@ elasticsearch.password: "password set"
 elasticsearch.hosts: ["https://localhost:9200"]
 elasticsearch.ssl.certificateAuthorities: ["path to elastic/elasticsearch-9.5.2/config/certs/http_ca.crt"]
 ```
-Then execute the kibana-version/bin/kibana.bat and elasticsearch-version/bin/elasticsearch.bat. Wait for a moment and then access the localhost:5601.
+Then execute the kibana-version/bin/kibana.bat and elasticsearch-version/bin/elasticsearch.bat. Wait for a moment and then access the localhost:5601.  
+Add the windows integration and follow the step to extract the file.  
+Download the sysmon.  
+Open cmd or powershell as administrator, configure the locate to the elastic agent, configure the elastic-agent.yml
+```
+outputs:
+  default:
+    type: elasticsearch
+    hosts:
+      - "https://127.0.0.1:9200"
+    username: "<username>"
+    password: "<password>"
+    preset: balanced
+    ssl:
+      certificate_authorities:
+        - '<path to certificate> like D:\elasticsearch-9.5.2-windows-x86_64\elasticsearch-9.5.2\config\certs\http_ca.crt'
+
+inputs:
+  - type: winlog
+    id: windows-security
+    use_output: default
+    streams:
+      - name: Security
+        data_stream:
+          type: logs
+          dataset: windows.security
+          namespace: default
+        winlog:
+          channel: Security
+
+  - type: winlog
+    id: windows-system
+    use_output: default
+    streams:
+      - name: System
+        data_stream:
+          type: logs
+          dataset: windows.system
+          namespace: default
+        winlog:
+          channel: System
+
+  - type: winlog
+    id: windows-application
+    use_output: default
+    streams:
+      - name: Application
+        data_stream:
+          type: logs
+          dataset: windows.application
+          namespace: default
+        winlog:
+          channel: Application
+
+  - type: winlog
+    id: windows-sysmon
+    use_output: default
+    streams:
+      - name: Microsoft-Windows-Sysmon/Operational
+        data_stream:
+          type: logs
+          dataset: windows.sysmon_operational
+          namespace: default
+        winlog:
+          channel: Microsoft-Windows-Sysmon/Operational
+```
