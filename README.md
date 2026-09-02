@@ -78,10 +78,13 @@ Use the antivirus app is the first chose for most people, it don't need any know
 Generate the hash and compare to the libary, relias on the hash did sumbited to the liabary. The hash would change even just a single bit in the app change.
 
 **Behavioral base**  
-Detect the action of a process take, like open a pdf that is safe, but will warning user while a word document execute the powershell(danger process, classify as maliciou marco)
+Detect the action of a process take, like open a pdf that is safe, but will warning user while a word document execute the powershell(danger process, classify as maliciou marco)  
+I use the command in revshells.com to make reverse shell in windows, use linux to listen to it. Save the command as file ps1, put in the exeception to prevent it place in quarantine zone automaticly. Then the linux execute the malicious command(yes, C2 again, other malicious activity will take much longer time) to windows. The command had been terminated.  
+<img alt="" src="images/behaviour.png">  
+Maybe the ps1 is in the exeception list, the antivirous allow the reverse shell alive.
 
-
-The antivirus above, they all allow to do the full drive or partial drive scan, but they had not explain what method they use. Here I create a schedule task that edit the firewall to a directory periodlc. 
+**Code analyst**
+I do like to put this same as signature, both static analyst... but different method
 RunNetrule.vbs file run by wscript.exe, use wscript to run powershell command can prevent the powershell windows flash even use the hidden widows
 ```
 Set WshShell = CreateObject("WScript.Shell")
@@ -148,9 +151,9 @@ The command can be maliciou if it disable the firewall rule. However, only 360 m
 </picture>
 
 The antivirus apps marked a few files that is PUP or backdoor, which are the same. Um, after I delete the file, the program can not run. ***I delete those antivirus and execute it again, it allow to run. Maybe one of them kill the process and had not notice me.*** Additional, 360 disable execution all the program in usb, it is the function I had not seen in other antivirus, also, don't grab an unknow usb on street and insert to the pc.(not the promotion to 360, only describe the advantage, and I want to say, 360 tried to install more app without you known it, more like a trojan than a trojan)  
-To the using, choose one of the antivirus you trust, the more does not mean better. (They fights in your pc)
+To the using, choose one of the antivirus you trust, the more does not mean better. (They fights in your pc)  
 
-For security, antivirus can act as the guard and the asistant, use for easy manage with the suspecious or malicious file. However, we can not 100% trust or rely it, it may not detect the new malware, new technologies, new vulnerability.
+For security, antivirus can act as the guard and the asistant, use for easy manage with the suspecious or malicious file. However, we can not 100% trust or rely it, it may not detect the new malware, new technologies, new vulnerability. Also, there are a few anti-virus apps are not sensitive enough, like edit the firewall, make the C2(same network, can be the same reason that did not alert the user), give me the feel like the attacker can do a lots of things. Additionally, this is not the judgement of they are useless, they help users if they don't know how to read domain, analyst files and track the process.
 
 # **SIEM**  
 Here I use the elastic as the example, the reason is I like the visualization process tree in it.(I am using the windows, linux and mac have to use other way)
