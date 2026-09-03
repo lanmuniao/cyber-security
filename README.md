@@ -83,7 +83,7 @@ I use the command in revshells.com to make reverse shell in windows, use linux t
 <img alt="" src="images/behaviour.png">  
 Maybe the ps1 is in the exeception list, the antivirous allow the reverse shell alive.
 
-**Code analyst**
+**Code analyst**  
 I do like to put this same as signature, both static analyst... but different method
 RunNetrule.vbs file run by wscript.exe, use wscript to run powershell command can prevent the powershell windows flash even use the hidden widows
 ```
