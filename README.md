@@ -253,3 +253,12 @@ Back to elastic, discovery, search "avast" in the search bar, which should displ
 I track the path by process.name, process.pid, process.parent.pid. The result is dead end, the sysmon only record the log of AvastUI.exe.
 <img alt="" src="images/siem3.png">  
 However, it give me some information, each time I paste the maliciou file, the explorer tried to create a file, the AvastUI.exe execute the AvastUI.exe, then use the command to display the page include the message.
+Leave the search bar blank, there is no other information I can find, so I search the avast log path online. C:\ProgramData\Avast Software\Avast\log. The file is editing by the avast, copy it to other place and open. I found
+```
+[2026-09-04 09:04:29.292] [notice ] [aavm       ] [ 4936: 6208] [CA66E3:3079] ProcessNewDetection: new detection
+[2026-09-04 09:04:29.292] [notice ] [aavm       ] [ 4936:21544] [CA66E3:1073] IdpWrapper::OnActionStarted(actionCode => 16384).
+[2026-09-04 09:04:29.295] [notice ] [aavm       ] [ 4936:21544] [CA66E3:1683] IdpWrapper::OnActionChange(finishedActionCode => 16384, finishedActionResult => 0, requestedActionCode => 4, flags => 0).
+[2026-09-04 09:04:29.295] [notice ] [aavm       ] [ 4936:21544] [CA66E3:1351] IdpWrapper::OnActionFinishedImpl(actionCode => 16384, actionResult => 0).
+```
+Looks useless itn't it, only have the detection, actions. Wait, it did tell us on the time it is doing something. Not just put everything into the quarantine. 
+While we receive the alert, we can check there is something happen by SIEM. But we have to do futher investigation using the app log and other tools.  
