@@ -260,5 +260,5 @@ Leave the search bar blank, there is no other information I can find, so I searc
 [2026-09-04 09:04:29.295] [notice ] [aavm       ] [ 4936:21544] [CA66E3:1683] IdpWrapper::OnActionChange(finishedActionCode => 16384, finishedActionResult => 0, requestedActionCode => 4, flags => 0).
 [2026-09-04 09:04:29.295] [notice ] [aavm       ] [ 4936:21544] [CA66E3:1351] IdpWrapper::OnActionFinishedImpl(actionCode => 16384, actionResult => 0).
 ```
-Looks useless itn't it, only have the detection, actions. Wait, it did tell us on the time it is doing something. Not just put everything into the quarantine. 
+Looks useless itn't it, only have the detection, actions. Wait, it did tell us on the time it is doing something. Not just put everything into the quarantine. (find the quarantine file path later)
 While we receive the alert, we can check there is something happen by SIEM. But we have to do futher investigation using the app log and other tools.  
