@@ -245,3 +245,11 @@ Use command to Restart the agent
 Restart-Service "Elastic Agent"
 ```
 Now, the search should display the events.
+
+Copy and paste the reverse.ps1 to other directory, seens it leave the exception location, the avast will mark it as maliciou and put it in quarantine zone.  
+<img alt="" src="images/siem1.png">  
+Back to elastic, discovery, search "avast" in the search bar, which should display all logs include the word "avast".
+<img alt="" src="images/siem2.png">  
+I track the path by process.name, process.pid, process.parent.pid. The result is dead end, the sysmon only record the log of AvastUI.exe.
+<img alt="" src="images/siem3.png">  
+However, it give me some information, each time I paste the maliciou file, the explorer tried to create a file, the AvastUI.exe execute the AvastUI.exe, then use the command to display the page include the message.
