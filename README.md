@@ -253,12 +253,13 @@ Back to elastic, discovery, search "avast" in the search bar, which should displ
 I track the path by process.name, process.pid, process.parent.pid. The result is dead end, the sysmon only record the log of AvastUI.exe.
 <img alt="" src="images/siem3.png">  
 However, it give me some information, each time I paste the maliciou file, the explorer tried to create a file, the AvastUI.exe execute the AvastUI.exe, then use the command to display the page include the message.
-Leave the search bar blank, there is no other information I can find, so I search the avast log path online. C:\ProgramData\Avast Software\Avast\log. The file is editing by the avast, copy it to other place and open. I found
+Leave the search bar blank, there is no other information I can find, so I search the avast log path online. C:\ProgramData\Avast Software\Avast\log. The file is editing by the avast, copy it to other place and open. In the AvastSvc.log, I found
 ```
 [2026-09-04 09:04:29.292] [notice ] [aavm       ] [ 4936: 6208] [CA66E3:3079] ProcessNewDetection: new detection
 [2026-09-04 09:04:29.292] [notice ] [aavm       ] [ 4936:21544] [CA66E3:1073] IdpWrapper::OnActionStarted(actionCode => 16384).
 [2026-09-04 09:04:29.295] [notice ] [aavm       ] [ 4936:21544] [CA66E3:1683] IdpWrapper::OnActionChange(finishedActionCode => 16384, finishedActionResult => 0, requestedActionCode => 4, flags => 0).
 [2026-09-04 09:04:29.295] [notice ] [aavm       ] [ 4936:21544] [CA66E3:1351] IdpWrapper::OnActionFinishedImpl(actionCode => 16384, actionResult => 0).
 ```
-Looks useless itn't it, only have the detection, actions. Wait, it did tell us on the time it is doing something. Not just put everything into the quarantine. (find the quarantine file path later)
-While we receive the alert, we can check there is something happen by SIEM. But we have to do futher investigation using the app log and other tools.  
+Looks useless itn't it, only have the detection, actions. Wait, it did tell us on the time it is doing something. Not just put everything into the quarantine. In Cleaner.log, I found the logs of files had been quarantine. Seens the log did tell me what did it do, but I can't find the path where it store it, I have to search online.
+They say the path is C:\ProgramData\Avast Software\Avast\chest, the index.xml is the quarantine files. I found the same values in <IDPBlob>, which should be the processed code. Then is the research of the way that no cheat, like no information online. I have to > right click on the file, select property, security, advance, aduit, principle (everyone), select edit. Then I can find this event with id 4663 in security log.
+This should be apply to the directories where store the sensitive or secret files, otherwise, will feel helpless when investigating an event. 
