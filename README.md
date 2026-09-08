@@ -261,5 +261,17 @@ Leave the search bar blank, there is no other information I can find, so I searc
 [2026-09-04 09:04:29.295] [notice ] [aavm       ] [ 4936:21544] [CA66E3:1351] IdpWrapper::OnActionFinishedImpl(actionCode => 16384, actionResult => 0).
 ```
 Looks useless itn't it, only have the detection, actions. Wait, it did tell us on the time it is doing something. Not just put everything into the quarantine. In Cleaner.log, I found the logs of files had been quarantine. Seens the log did tell me what did it do, but I can't find the path where it store it, I have to search online.
-They say the path is C:\ProgramData\Avast Software\Avast\chest, the index.xml is the quarantine files. I found the same values in <IDPBlob>, which should be the processed code. Then is the research of the way that no cheat, like no information online. I have to > right click on the file, select property, security, advance, aduit, principle (everyone), select edit. Then I can find this event with id 4663 in security log.
-This should be apply to the directories where store the sensitive or secret files, otherwise, will feel helpless when investigating an event. 
+They say the path is C:\ProgramData\Avast Software\Avast\chest, the index.xml is the quarantine files. I found the same values in <IDPBlob>, which should be the processed code. 
+# **Enrichment**
+What is your feeling to the previous section, lack of information? From visibility, we can see the file exist, then gone away. From the log, we found the file create process, but who remove it? Where did it go through, can we complete the investigation without cheating(not really cheating, somehow， we need the external information to help us, in this case, we require more information to help us). 
+
+Information enrichment is like collect more information we may need, help us complete the investigation more faster. (The escalate report may need you, add more information, to cut down the time that L2 need to spend, share more things you know)  
+
+To record the logs when edit, copy, delete and else activities, run powershell as the admin, run the code
+```
+auditpol /set /subcategory:"File System" /success:enable /failure:enable
+```
+Then right click on the directory we want to monitor, select property, security, advance, aduit, continue, select add, principle, enter "everyone", confirm, select every permissions, and applay. Try to edit the file under this directory, should be able to find event 4663.
+
+Back to last pratice, copy the file reverse.ps1 to the directory we monitor. 
+In elastic, set the time range for easy investigation, search "avast" or \*avast\*
