@@ -274,4 +274,7 @@ auditpol /set /subcategory:"File System" /success:enable /failure:enable
 Then right click on the directory we want to monitor, select property, security, advance, aduit, continue, select add, principle, enter "everyone", confirm, select every permissions, and applay. Try to edit the file under this directory, should be able to find event 4663.
 
 Back to last pratice, copy the file reverse.ps1 to the directory we monitor. 
-In elastic, set the time range for easy investigation, search "avast" or \*avast\*
+In elastic, set the time range for easy investigation, search "avast" or \*avast\*, we can find a few logs. The first one(lowest to highest), **winlog.event_data.ProcessName** value equal to **C:\Program Files\Avast Software\Avast\AvastSvc.exe**, **message** is the process tring to read the target file **C:\Scriptslog\reverse.ps1**. Read through the message in each logs, there are "WriteAttributes", "DELETE" "Deleted object" and display the UI.  
+Now we can see the almost complete process of suspecious file get into your computer, the avast read it, identify it, and move the maliciou to quarantine zone.  
+But here is a question, we can not see where the file copy to, I know we can audit the target file but it is not what I want. I do remember in Tryhackmen there is a room, which have the logs record where the file copied to. (back when I find out the way)
+
