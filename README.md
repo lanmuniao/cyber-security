@@ -278,3 +278,5 @@ In elastic, set the time range for easy investigation, search "avast" or \*avast
 Now we can see the almost complete process of suspecious file get into your computer, the avast read it, identify it, and move the maliciou to quarantine zone.  
 But here is a question, we can not see where the file copy to, I know we can audit the target file but it is not what I want. I do remember in Tryhackmen there is a room, which have the logs record where the file copied to. (back when I find out the way)
 
+If use the process monitor, it is like more detail and does not require to set the audit pool. I feel it is more using when analyst malware, not the activities.
+<img alt="" src="images/siem4.png">
