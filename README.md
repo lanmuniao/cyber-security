@@ -280,3 +280,31 @@ But here is a question, we can not see where the file copy to, I know we can aud
 
 If use the process monitor, it is like more detail and does not require to set the audit pool. I feel it is more using when analyst malware, not the activities.
 <img alt="" src="images/siem4.png">
+
+# **Integrate cloud**
+Sometimes, we like to get the cloud service logs and investigate at local.
+Create an AWS account, login to console, create cloudWatch and let it store the logs at S3. Create an account for elastic, let elastic get the logs from S3. Apply the Simple Queue Service for elastic. Now we get back throught the elastic, add the integration(only agent 9.4 or less can use) the aws cloudwatch integration. Enter the keys to allow the agent login and get the logs. (Can apply get the logs permit only, depends on security). While the integration is not allow to use, try add the following to the inputs.
+```
+- type: aws-s3
+    id: aws-cloudtrail
+    streams:
+      - bucket_arn: arn:aws:s3:::aws-cloudtrail-logs-144519588827-8cd2ae5c
+        region: ap-southeast-2
+        number_of_workers: 1
+        bucket_list_interval: 120s
+        access_key_id: ${env.AWS_ACCESS_KEY_ID}
+        secret_access_key: ${env.AWS_SECRET_ACCESS_KEY}
+        expand_event_list_from_field: Records
+        content_type: application/json
+        data_stream:
+          dataset: aws.cloudtrail
+          namespace: default
+```
+You can store the access key in environment or put it in the file.
+
+Finally, we should allow to see the logs in discovery. *data_stream.dataset: aws.cloudtrail*
+
+Try to create a new IAM user, and search the username in discovery.
+<img alt="" src="images/siem4.png">
+
+
